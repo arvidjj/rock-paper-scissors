@@ -1,0 +1,104 @@
+body {
+    font-family: 'Roboto', arial;
+    margin:0;
+    padding:0;
+    display:flex;
+    flex-direction: column;
+    background-color: rgb(24, 25, 36);
+    color: white;
+}
+
+.d-flex {
+    display:flex;
+}
+
+.flex-center {
+    align-items: center;
+    justify-content: center;
+}
+
+.screen30 {
+    max-width: 30rem;
+    width: 100%;
+}
+
+.screen50 {
+    max-width: 50rem;
+    width: 100%;
+}
+
+.screen60 {
+    max-width: 60rem;
+    width: 100%;
+}
+
+.gameAndResults { 
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.gameBlock {
+    display:flex;
+    width:100%;
+}
+
+.playerButtons {
+    display:flex;
+    flex-direction: column;
+    margin-right: 50px;
+}
+
+.playerButtons button {
+    cursor: pointer;
+}
+
+.imageButton {
+    height: auto;
+    width: auto;
+    background: none;
+    border: 3px solid #24252f;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+
+.imageButton img {
+    width: auto;
+    height: 150px;
+}
+
+.img-hor-vert {
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+}
+
+.battle {
+    margin:auto;
+    text-align: center;
+    padding: 25px;
+}
+
+.computerSide {
+    display:flex;
+    flex-direction: column;
+    margin-left: 50px;
+}
+
+.results {
+    display:flex;
+    text-align: center;
+    align-items: center;
+}
+
+.wonDiv {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 50px 20px;
+    background-color: #24252f;
+    border: 2px solid rgb(34, 56, 0);
+    box-shadow:0 0 10px rgba(0,0,0,0.4);
+    border-radius: 12px;
+    position:absolute;
+}

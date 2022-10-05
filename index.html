@@ -5,12 +5,45 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rock Paper Scissors</title>
-    <script type="text/javascript" src="js/app.js"></script>
+    <title>Rock Paper Scissors</title>  
+    <link rel="stylesheet" href="styles/style.css">
 </head>
 
 <body>
-    
+    <div class="d-flex flex-center">
+        <div id="wonDiv" class="wonDiv screen50">
+            <h1>Congratlations, you won!</h1>
+
+            <button>Play again!</button>
+        </div>
+
+            <div class="gameAndResults screen60">
+                <div class="gameBlock">
+                    <div class="playerButtons">
+                        <h1>Choose!</h1>
+                        <button class="imageButton" id="rockButton"><img src="images/rockGrey.png" alt="Paper" class="img-hor-vert"></button>
+                        <button class="imageButton" id="paperButton"><img src="images/paperGrey.png" alt="Paper"></button>
+                        <button class="imageButton" id="scissorsButton"><img src="images/scissorsGrey.png" alt="Paper" class="img-hor-vert"></button>
+                    </div>
+                    <div class="battle">
+                        <h1 id="versusH1">Vs</h1>
+                    </div>
+                    <div class="computerSide">
+                        <h1>Opponent</h1>
+                        <button class="imageButton"><img src="images/rockGrey.png" alt="Paper"></button>
+                        <button class="imageButton"><img src="images/paperGrey.png" alt="Paper" class="img-hor-vert"></button>
+                        <button class="imageButton"><img src="images/scissorsGrey.png" alt="Paper"></button>
+                    </div>
+                </div>
+                <div class="results">
+                    <h1 id="resultH1"></h1>
+                </div>
+            </div>
+    </div>
+    <script type="text/javascript" src="js/app.js"></script>
+    <script>
+        hideScreen();
+    </script>
 </body>
 
 </html>
