@@ -5,40 +5,55 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rock Paper Scissors</title>  
+    <title>Rock Paper Scissors</title>
     <link rel="stylesheet" href="styles/style.css">
 </head>
 
 <body>
-    <div class="d-flex flex-center">
+    <div class="fullscreen-container" id="fsContainer">
         <div id="wonDiv" class="wonDiv screen50">
-            <h1>Congratlations, you won!</h1>
-
-            <button>Play again!</button>
+            <h1 id="wonDivH1" style="margin-top:0;"></h1>
+            <h2 id="wonDivScore"></h2>
+            <button class="btn playAgainBtn" id="playAgainButton">Play again!</button>
+            <p id="wonDivTotalWins"></p>
         </div>
+    </div>
 
-            <div class="gameAndResults screen60">
-                <div class="gameBlock">
-                    <div class="playerButtons">
-                        <h1>Choose!</h1>
-                        <button class="imageButton" id="rockButton"><img src="images/rockGrey.png" alt="Paper" class="img-hor-vert"></button>
-                        <button class="imageButton" id="paperButton"><img src="images/paperGrey.png" alt="Paper"></button>
-                        <button class="imageButton" id="scissorsButton"><img src="images/scissorsGrey.png" alt="Paper" class="img-hor-vert"></button>
-                    </div>
-                    <div class="battle">
-                        <h1 id="versusH1">Vs</h1>
-                    </div>
-                    <div class="computerSide">
-                        <h1>Opponent</h1>
-                        <button class="imageButton"><img src="images/rockGrey.png" alt="Paper"></button>
-                        <button class="imageButton"><img src="images/paperGrey.png" alt="Paper" class="img-hor-vert"></button>
-                        <button class="imageButton"><img src="images/scissorsGrey.png" alt="Paper"></button>
-                    </div>
+    <div class="d-flex flex-center">
+        <div class="gameAndResults screen80 smallShadow blur">
+            <div class="gameTitle">
+                <h1>Rock, Paper and Scissors!</h1>
+            </div>
+            <div class="gameBlock">
+                <div class="playerButtons">
+                    <h1 style="text-align:center;">You</h1>
+                    <button class="imageButton playerBtn" id="rockButton" onmouseover="rockHover();"
+                        onmouseout="rockUnhover();"><img src="images/rockGrey.png" alt="Paper" class="img-hor-vert"
+                            id="rockPlayerImage"></button>
+                    <button class="imageButton playerBtn" id="paperButton" onmouseover="paperHover();"
+                        onmouseout="paperUnhover();"><img src="images/paperGrey.png" id="paperPlayerImage"
+                            alt="Paper"></button>
+                    <button class="imageButton playerBtn" id="scissorsButton" onmouseover="scissorsHover();"
+                        onmouseout="scissorsUnhover();"><img src="images/scissorsGrey.png" alt="Paper"
+                            class="img-hor-vert" id="scissorsPlayerImage"></button>
                 </div>
-                <div class="results">
-                    <h1 id="resultH1"></h1>
+                <div class="battle">
+                    <h2 id="versusH1" style="margin-top:auto;">Vs</h2>
+                    <h1 id="resultH1" style="margin-bottom:auto;"></h1>
+                    <h3 id="resultH2"></h3>
+                </div>
+                <div class="computerSide">
+                    <h1>Opponent</h1>
+                    <button class="imageButton"><img src="images/rockGrey.png" alt="Paper"
+                            id="rockOpponentImage"></button>
+                    <button class="imageButton"><img src="images/paperGrey.png" alt="Paper" class="img-hor-vert"
+                            id="paperOpponentImage"></button>
+                    <button class="imageButton"><img src="images/scissorsGrey.png" alt="Paper"
+                            id="scissorsOpponentImage"></button>
                 </div>
             </div>
+
+        </div>
     </div>
     <script type="text/javascript" src="js/app.js"></script>
     <script>

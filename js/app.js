@@ -94,12 +94,29 @@ function lowerCaseCapitalize(str) {
 }
 
 const buttons = document.querySelectorAll('.playerButtons button');
+
+const rockImage = document.querySelector('#rockPlayerImage');
+const paperImage = document.querySelector('#paperPlayerImage');
+const scissorsImage = document.querySelector('#scissorsPlayerImage');
+const rockOImage = document.querySelector('#rockOpponentImage');
+const paperOImage = document.querySelector('#paperOpponentImage');
+const scissorsOImage = document.querySelector('#scissorsOpponentImage');
+
 const resultH1 = document.querySelector('#resultH1');
+const resultH2 = document.querySelector('#resultH2');
 const versusH1 = document.querySelector('#versusH1');
+
+const fullScreenDiv = document.querySelector('#fsContainer');
 const wonDiv = document.querySelector('#wonDiv');
+const wonDivH1 = document.querySelector('#wonDivH1');
+const wonDivScore = document.querySelector('#wonDivScore');
+const wonDivTotalWins = document.querySelector('#wonDivTotalWins');
+
 //const lostDiv = document.querySelector('#versusH1');
 let playerScore = 0;
 let computerScore = 0;
+let playerWins = 0;
+let computerWins = 0;
 
 function getSelectionButton(buttonId) { //replaces example: "rockButton" with "Rock"
     let selection = buttonId.replace('Button', '');
@@ -107,20 +124,26 @@ function getSelectionButton(buttonId) { //replaces example: "rockButton" with "R
 }
 
 function playerClickButton(e) { //Plays logic one round
+    defaultOpponentImage();
+
     let playerChoice = getSelectionButton(this.getAttribute('id'));
     let machineChoice = getComputerChoice();
 
     let result = playRound(playerChoice, machineChoice);
 
     //Changing text
+    changeOpponentImage(machineChoice);
     versusH1.innerHTML = `Player chose: ${playerChoice}<br>Machine chose: ${machineChoice}`;
     calculateScoreSingleRound(result);
-    resultH1.innerHTML = `${returnResultMessage(result)}<br>Your score:${playerScore}<br>Opponent score:${computerScore}`;
+    resultH1.textContent = `${returnResultMessage(result)}`;
+    resultH2.innerHTML = `Your score:${playerScore}<br>Opponent score:${computerScore}`;
 
     if (playerScore >= 5) {
-        winScreen;
-    } else if (computerScore === 5) {
-        lostScreen;
+        playerWins++;
+        winScreen();
+    } else if (computerScore >= 5) {
+        computerWins++;
+        lostScreen();
     }
 }
 
@@ -137,12 +160,21 @@ function hideScreen() {
 }
 
 function winScreen() {
-    wonDiv.style.display = "block";
+    fullScreenDiv.style.display = "block";
+    wonDivH1.textContent = `Congratulations, you won!`;
+    wonDivScore.textContent = `You won ${playerScore} against computer's ${computerScore}`;
+    wonDivTotalWins.innerHTML = `Your total Wins: ${playerWins}<br>Computer total Wins: ${computerWins}`;
+    wonDiv.style.display = "flex";
 }
 
 function lostScreen() {
-
+    fullScreenDiv.style.display = "block";
+    wonDivH1.textContent = `You lost!`;
+    wonDivScore.textContent = `You lost ${playerScore} against computer's ${computerScore}`;
+    wonDivTotalWins.innerHTML = `Your total Wins: ${playerWins}<br>Computer total Wins: ${computerWins}`;
+    wonDiv.style.display = "flex";
 }
+
 function returnResultMessage(result) {
     if (result === 'won') {
         return 'You won this round!';
@@ -155,3 +187,45 @@ function returnResultMessage(result) {
 
 
 buttons.forEach(button => button.addEventListener('click', playerClickButton));
+
+
+//BUTTON HOVER IMAGE
+function rockHover() {
+    rockImage.setAttribute('src', 'images/rock.png');
+}
+
+function rockUnhover() {
+    rockImage.setAttribute('src', 'images/rockGrey.png');
+}
+
+function paperHover() {
+    paperImage.setAttribute('src', 'images/paper.png');
+}
+
+function paperUnhover() {
+    paperImage.setAttribute('src', 'images/paperGrey.png');
+}
+
+function scissorsHover() {
+    scissorsImage.setAttribute('src', 'images/scissors.png');
+}
+
+function scissorsUnhover() {
+    scissorsImage.setAttribute('src', 'images/scissorsGrey.png');
+}
+
+function defaultOpponentImage() {
+    rockOImage.setAttribute('src', 'images/rockGrey.png');
+    paperOImage.setAttribute('src', 'images/paperGrey.png');
+    scissorsOImage.setAttribute('src', 'images/scissorsGrey.png');
+}
+
+function changeOpponentImage(image) {
+    if (image === 'Rock') {
+        rockOImage.setAttribute('src', 'images/rock.png');
+    } else if (image === 'Paper') {
+        paperOImage.setAttribute('src', 'images/paper.png');
+    } else if (image === 'Scissors') {
+        scissorsOImage.setAttribute('src', 'images/scissors.png');
+    }
+}
