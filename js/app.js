@@ -111,12 +111,14 @@ const wonDiv = document.querySelector('#wonDiv');
 const wonDivH1 = document.querySelector('#wonDivH1');
 const wonDivScore = document.querySelector('#wonDivScore');
 const wonDivTotalWins = document.querySelector('#wonDivTotalWins');
+const playAgainButton = document.querySelector('#playAgainButton');
 
 //const lostDiv = document.querySelector('#versusH1');
 let playerScore = 0;
 let computerScore = 0;
 let playerWins = 0;
 let computerWins = 0;
+let currentComputerSelection;
 
 function getSelectionButton(buttonId) { //replaces example: "rockButton" with "Rock"
     let selection = buttonId.replace('Button', '');
@@ -127,13 +129,13 @@ function playerClickButton(e) { //Plays logic one round
     defaultOpponentImage();
 
     let playerChoice = getSelectionButton(this.getAttribute('id'));
-    let machineChoice = getComputerChoice();
+    currentComputerSelection = getComputerChoice();
 
-    let result = playRound(playerChoice, machineChoice);
+    let result = playRound(playerChoice, currentComputerSelection);
 
     //Changing text
-    changeOpponentImage(machineChoice);
-    versusH1.innerHTML = `Player chose: ${playerChoice}<br>Machine chose: ${machineChoice}`;
+    changeOpponentImage(currentComputerSelection);
+    versusH1.innerHTML = `Player chose: ${playerChoice}<br>Machine chose: ${currentComputerSelection}`;
     calculateScoreSingleRound(result);
     resultH1.textContent = `${returnResultMessage(result)}`;
     resultH2.innerHTML = `Your score:${playerScore}<br>Opponent score:${computerScore}`;
@@ -157,6 +159,7 @@ function calculateScoreSingleRound(result) {
 
 function hideScreen() {
     wonDiv.style.display = "none";
+    fullScreenDiv.style.display = "none";
 }
 
 function winScreen() {
@@ -164,7 +167,7 @@ function winScreen() {
     wonDivH1.textContent = `Congratulations, you won!`;
     wonDivScore.textContent = `You won ${playerScore} against computer's ${computerScore}`;
     wonDivTotalWins.innerHTML = `Your total Wins: ${playerWins}<br>Computer total Wins: ${computerWins}`;
-    wonDiv.style.display = "flex";
+    wonDiv.style.display = "block";
 }
 
 function lostScreen() {
@@ -172,7 +175,7 @@ function lostScreen() {
     wonDivH1.textContent = `You lost!`;
     wonDivScore.textContent = `You lost ${playerScore} against computer's ${computerScore}`;
     wonDivTotalWins.innerHTML = `Your total Wins: ${playerWins}<br>Computer total Wins: ${computerWins}`;
-    wonDiv.style.display = "flex";
+    wonDiv.style.display = "block";
 }
 
 function returnResultMessage(result) {
@@ -228,4 +231,24 @@ function changeOpponentImage(image) {
     } else if (image === 'Scissors') {
         scissorsOImage.setAttribute('src', 'images/scissors.png');
     }
+}
+
+playAgainButton.addEventListener('click', restartGame);
+
+function restartGame() {    
+    clearScore()
+    defaultOpponentImage();
+    clearBattleText()
+    hideScreen();
+}
+
+function clearBattleText() {
+    versusH1.textContent = `Vs`;
+    resultH1.textContent = ``;
+    resultH2.textContent = ``;
+}
+
+function clearScore() {
+    playerScore = 0;
+    computerScore = 0;
 }
