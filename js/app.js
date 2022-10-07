@@ -1,54 +1,5 @@
 const g_gameOptions = ['Rock', 'Paper', 'Scissors'];
 
-/*function game() {
-    let playerScore = 0;
-    let computerScore = 0;
-
-    for (let i = 0; i < 5; i++) {
-        let playerChoice = prompt("Rock, paper or scissors?");
-        let result = playRound(playerChoice, getComputerChoice());
-
-        if (result === 'won') {
-            playerScore += 1;
-            console.log("You won this round! (+1 point)");
-            console.log(`PlayerScore: ${playerScore}\nComputerScore: ${computerScore}`);
-        } else if (result === 'lost') {
-            computerScore += 1;
-            console.log("You lost this round!");
-            console.log(`PlayerScore: ${playerScore}\nComputerScore: ${computerScore}`);
-        } else if (result === 'tie') {
-            console.log("Tie round!");
-            console.log(`PlayerScore: ${playerScore}\nComputerScore: ${computerScore}`);
-        } else {
-            console.log("Invalid input!");
-        }
-     }
-
-     while (playerScore === computerScore) {
-        console.log("UNTIE ROUND!");
-        let playerChoice = prompt("Rock, paper or scissors?");
-        let result = playRound(playerChoice, getComputerChoice());
-
-        if (result === 'won') {
-            playerScore += 1;
-            console.log("You won this round! (+1 point)");
-            console.log(`PlayerScore: ${playerScore}\nComputerScore: ${computerScore}`);
-        } else if (result === 'lost') {
-            computerScore += 1;
-            console.log("You lost this round!");
-            console.log(`PlayerScore: ${playerScore}\nComputerScore: ${computerScore}`);
-        } else if (result === 'tie') {
-            console.log("Tie round!");
-            console.log(`PlayerScore: ${playerScore}\nComputerScore: ${computerScore}`);
-        } else {
-            console.log("Invalid input!");
-        }
-     }
-
-     let finalResult = (playerScore > computerScore) ? "You won the game!" : "You lost the game!";
-     console.log(finalResult)
-}*/
-
 function playRound(playerSelection, computerSelection) {
     let playerAnswer = lowerCaseCapitalize(playerSelection);
 
@@ -130,13 +81,12 @@ function playerClickButton(e) { //Plays logic one round
 
     let playerChoice = getSelectionButton(this.getAttribute('id'));
     currentComputerSelection = getComputerChoice();
-
-    let result = playRound(playerChoice, currentComputerSelection);
-
-    //Changing text
     changeOpponentImage(currentComputerSelection);
-    versusH1.innerHTML = `Player chose: ${playerChoice}<br>Machine chose: ${currentComputerSelection}`;
+
+    let result = playRound(playerChoice, currentComputerSelection); 
     calculateScoreSingleRound(result);
+    //Changing text
+    versusH1.innerHTML = `Player chose: ${playerChoice}<br>Machine chose: ${currentComputerSelection}`;
     resultH1.textContent = `${returnResultMessage(result)}`;
     resultH2.innerHTML = `Your score:${playerScore}<br>Opponent score:${computerScore}`;
 
@@ -157,34 +107,35 @@ function calculateScoreSingleRound(result) {
     }
 }
 
-function hideScreen() {
-    wonDiv.style.display = "none";
-    fullScreenDiv.style.display = "none";
-}
-
 function winScreen() {
-    fullScreenDiv.style.display = "block";
+    fullScreenDiv.classList.add('active');
     wonDivH1.textContent = `Congratulations, you won!`;
     wonDivScore.textContent = `You won ${playerScore} against computer's ${computerScore}`;
     wonDivTotalWins.innerHTML = `Your total Wins: ${playerWins}<br>Computer total Wins: ${computerWins}`;
-    wonDiv.style.display = "block";
+    wonDiv.classList.add('active');
 }
 
 function lostScreen() {
-    fullScreenDiv.style.display = "block";
+    fullScreenDiv.classList.add('active');
     wonDivH1.textContent = `You lost!`;
     wonDivScore.textContent = `You lost ${playerScore} against computer's ${computerScore}`;
     wonDivTotalWins.innerHTML = `Your total Wins: ${playerWins}<br>Computer total Wins: ${computerWins}`;
-    wonDiv.style.display = "block";
+    wonDiv.classList.add('active');
+}
+
+function removeActiveWonDiv() {
+    fullScreenDiv.classList.remove('active');
+    wonDiv.classList.remove('active');
 }
 
 function returnResultMessage(result) {
-    if (result === 'won') {
-        return 'You won this round!';
-    } else if (result === 'lost') {
-        return 'You lost this round...';
-    } else if (result === 'tie') {
-        return 'TIE!';
+    switch (result) {
+        case 'won':
+            return 'You won this round!';
+        case 'lost':
+            return 'You lost this round...'
+        case 'tie':
+            return 'TIE!';
     }
 }
 
@@ -225,21 +176,22 @@ function defaultOpponentImage() {
 
 function changeOpponentImage(image) {
     if (image === 'Rock') {
-        rockOImage.setAttribute('src', 'images/rock.png');
+        rockOImage.setAttribute('src', 'images/rockRed.png');
     } else if (image === 'Paper') {
-        paperOImage.setAttribute('src', 'images/paper.png');
+        paperOImage.setAttribute('src', 'images/paperRed.png');
     } else if (image === 'Scissors') {
-        scissorsOImage.setAttribute('src', 'images/scissors.png');
+        scissorsOImage.setAttribute('src', 'images/scissorsRed.png');
     }
 }
 
+playAgainButton.addEventListener('click', removeActiveWonDiv);
 playAgainButton.addEventListener('click', restartGame);
 
+
 function restartGame() {    
-    clearScore()
+    clearScore();
     defaultOpponentImage();
-    clearBattleText()
-    hideScreen();
+    clearBattleText();
 }
 
 function clearBattleText() {
